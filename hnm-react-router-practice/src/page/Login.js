@@ -1,38 +1,22 @@
-import React from "react";
-import { Button, Container, Form } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
 
-const Login = ({ setAuthenticate }) => {
-  const navigate = useNavigate();
-  const loginUser = (event) => {
-    event.preventDefault();
-    console.log("login user function issue");
-    setAuthenticate(true);
-    navigate("/");
-  };
+const Login = () => {
   return (
-    <Container className="Login-page">
-      <Form onSubmit={(event) => loginUser(event)}>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" />
-          <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-          </Form.Text>
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Password" />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="Check me out" />
-        </Form.Group>
-        <Button variant="danger" type="submit">
+    <div className="flex items-center justify-center mt-20 bg-muted">
+      <div className="bg-background p-8 rounded-2xl shadow-lg w-full max-w-sm border">
+        <h2 className="text-2xl font-semibold mb-6 text-center text-foreground">
           Login
-        </Button>
-      </Form>
-    </Container>
+        </h2>
+        <form className="flex flex-col gap-4">
+          <Input type="email" placeholder="E-Mail" />
+          <Input type="password" placeholder="Password" />
+          <Button type="submit" className="w-full">
+            Join
+          </Button>
+        </form>
+      </div>
+    </div>
   );
 };
 
