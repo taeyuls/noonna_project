@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const ProductAll = () => {
   const [productList, setProductList] = useState([]);
   const [query, setQuery] = useSearchParams();
   const [searchInput, setSearchInput] = useState("");
+  const navigate = useNavigate();
 
   const getProducts = async (searchQuery) => {
     let url = `https://my-json-server.typicode.com/taeyuls/miniProject/products?q=${searchQuery}`;
@@ -37,6 +38,10 @@ const ProductAll = () => {
     getProducts(searchQuery); // 초기 로딩 시에도 API 호출
   }, [query]);
 
+  const handleClick = (id) => {
+    navigate(`/product/${id}`);
+  };
+
   return (
     <div className="p-4">
       <div className="mb-4 flex justify-center items-center">
@@ -63,12 +68,31 @@ const ProductAll = () => {
           <div>결과가 없습니다.</div>
         ) : (
           productList.map((item, index) => (
-            <div key={index} className="border rounded-lg p-2 hover:shadow-lg">
+            <div
+              key={index}
+              className="border rounded-lg p-2 hover:shadow-lg cursor-pointer relative"
+              onClick={() => handleClick(item?.id)}
+            >
               <img
                 src={item?.img}
                 alt={item?.title}
                 className="w-full h-48 object-cover rounded-md"
               />
+
+              {/* 배지: NEW / 추천 */}
+              <div className="absolute top-2 left-2 space-y-1">
+                {(item.new === true || item.new === "true") && (
+                  <span className="bg-blue-500 text-white text-xs px-2 py-1 rounded">
+                    NEW
+                  </span>
+                )}
+                {item.choice && (
+                  <span className="bg-green-500 text-white text-xs px-2 py-1 rounded">
+                    추천
+                  </span>
+                )}
+              </div>
+
               <h4 className="mt-2 font-semibold text-sm">{item?.title}</h4>
               <p className="text-gray-500 text-sm">
                 ₩{item?.price?.toLocaleString()}

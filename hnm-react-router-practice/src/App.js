@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
@@ -8,8 +8,6 @@ import PrivateRoute from "./route/PrivateRoute";
 
 function App() {
   const [authenticate, setAuthenticate] = useState(false);
-
-  useEffect(() => {}, [authenticate]);
 
   return (
     <div className="min-h-screen bg-white text-violet-950">

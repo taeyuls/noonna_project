@@ -7,7 +7,7 @@ const ProductDetail = () => {
 
   const getProductDetail = async () => {
     try {
-      const url = `https://my-json-server.typicode.com/taeyulde/miniProject/products/${id}`;
+      const url = `https://my-json-server.typicode.com/taeyuls/miniProject/products/${id}`;
       const response = await fetch(url);
       const data = await response.json();
       console.log("받아온 데이터는??", data);
@@ -25,7 +25,7 @@ const ProductDetail = () => {
 
   useEffect(() => {
     getProductDetail();
-  }, []);
+  }, [id]);
 
   if (!product) {
     return (
