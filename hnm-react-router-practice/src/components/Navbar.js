@@ -2,6 +2,7 @@ import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useAuthStore from "../store/authStore";
 import { Button } from "./ui/button";
 
 const Navbar = () => {
@@ -17,16 +18,18 @@ const Navbar = () => {
   ];
 
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const { isLoggedIn, login, logout } = useAuthStore();
+
   const goToLogin = (e) => {
-    e.stopPropagation(); // 클릭 전파 방지
+    e.stopPropagation();
+    login();
     navigate("/Login");
   };
 
-  const logout = () => {
-    setIsLoggedIn(false);
+  const handleLogout = () => {
+    logout();
     navigate("/");
   };
 
@@ -47,8 +50,12 @@ const Navbar = () => {
     >
       <div className="flex justify-end w-full">
         {isLoggedIn ? (
-          <Button variant="outline" onClick={logout} className="text-white">
-            로그아웃
+          <Button
+            variant="outline"
+            onClick={handleLogout}
+            className="text-white"
+          >
+            Logout
           </Button>
         ) : (
           <Button

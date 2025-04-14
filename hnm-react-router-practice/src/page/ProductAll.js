@@ -12,6 +12,7 @@ const ProductAll = () => {
     try {
       let res = await fetch(url);
       let data = await res.json();
+      console.log("받은 데이터:", data);
       setProductList(data);
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -79,7 +80,6 @@ const ProductAll = () => {
                 className="w-full h-48 object-cover rounded-md"
               />
 
-              {/* 배지: NEW / 추천 */}
               <div className="absolute top-2 left-2 space-y-1">
                 {(item.new === true || item.new === "true") && (
                   <span className="bg-blue-500 text-white text-xs px-2 py-1 rounded">
