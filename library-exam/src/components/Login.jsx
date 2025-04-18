@@ -1,16 +1,21 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useUserStore } from "../stores/userStore";
 import { Button } from "../ui/button";
 
-export default function Login({ onLogin }) {
+export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  const login = useUserStore((state) => state.login);
+
   const handleLogin = (e) => {
     e.preventDefault();
+
     if (email && password) {
-      onLogin(email);
+      login(email);
+
       navigate("/");
     }
   };
@@ -39,7 +44,7 @@ export default function Login({ onLogin }) {
           required
         />
         <Button type="submit" className="w-full">
-          Join
+          로그인
         </Button>
       </form>
     </div>
