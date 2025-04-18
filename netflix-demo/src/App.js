@@ -1,24 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from "react-router-dom";
+import "./App.css";
+import AppLayout from "./layout/AppLayout";
+import Homepage from "./pages/Homepage/Homepage";
+
+// 홈페이지 /
+// 영화 전체보여주는 페이지 (서치) /movies
+// 영화 상세 페이지 /movies/:id
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path="/" element={<AppLayout />}>
+        <Route index element={<Homepage />} />
+      </Route>
+    </Routes>
   );
 }
 
