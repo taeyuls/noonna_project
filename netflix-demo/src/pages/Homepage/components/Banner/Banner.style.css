@@ -1,0 +1,24 @@
+.Banner {
+  height: 56vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.Banner:before {
+  content: "";
+  background: linear-gradient(to top, black, transparent);
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 56vh;
+}
+
+.Banner-content {
+  width: 36%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem;
+}
