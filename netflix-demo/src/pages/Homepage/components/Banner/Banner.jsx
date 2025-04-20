@@ -5,7 +5,6 @@ import "./Banner.style.css";
 
 const Banner = () => {
   const { data, isLoading, isError, error } = usePopularMoviesQuery();
-
   console.log("영화 리스트", data);
 
   if (isLoading) {
@@ -27,7 +26,15 @@ const Banner = () => {
       }}
       className="Banner"
     >
-      <div className="text-white Banner-content">
+      <div
+        className="text-white Banner-content"
+        style={{
+          maxWidth: "100%",
+          wordWrap: "break-word",
+          overflowWrap: "break-word",
+          wordBreak: "break-word",
+        }}
+      >
         <h1>{data[0].title}</h1>
         <p>{data[0].overview}</p>
       </div>

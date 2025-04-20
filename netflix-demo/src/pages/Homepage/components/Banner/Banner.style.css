@@ -3,15 +3,26 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  position: relative;
+  z-index: 0;
+  margin-bottom: 1rem;
+  box-shadow: inset 0 -40px 60px rgba(0, 0, 0, 0.5);
+  transition: transform 0.5s ease-in-out;
+}
+
+.Banner:hover {
+  transform: scale(1.01);
 }
 
 .Banner:before {
   content: "";
-  background: linear-gradient(to top, black, transparent);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
   position: absolute;
+  top: 0;
   left: 0;
   width: 100%;
   height: 56vh;
+  z-index: 1;
 }
 
 .Banner-content {
@@ -21,4 +32,28 @@
   flex-direction: column;
   justify-content: center;
   padding: 2rem;
+  max-width: 100%;
+  position: relative;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+  border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+  .Banner {
+    height: auto;
+    aspect-ratio: 16 / 9;
+    margin-bottom: 1rem;
+  }
+
+  .Banner-content {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 0;
+  }
+
+  .Banner-content p {
+    display: none;
+  }
 }
