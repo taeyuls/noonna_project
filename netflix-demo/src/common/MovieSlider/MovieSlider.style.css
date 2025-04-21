@@ -1,5 +1,5 @@
 .carousel-container {
-  overflow: visible;
+  overflow: hidden;
   height: 440px;
 }
 
@@ -9,7 +9,11 @@
 
 @media (max-width: 768px) {
   h3 {
-    font-size: 1.1rem;
+    font-size: 1.4rem;
     text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  .carousel-container {
+    height: 300px;
   }
 }

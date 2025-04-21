@@ -3,10 +3,10 @@ import { Alert } from "react-bootstrap";
 import "react-multi-carousel/lib/styles.css";
 import MovieSlider from "../../../../common/MovieSlider/MovieSlider";
 import { responsive } from "../../../../constants/responsive";
-import { useTopRatedMoviesQuery } from "../../../../hooks/useTopRatedMovies";
+import { useUpcomingMoviesQuery } from "../../../../hooks/useUpcomingMovies";
 
 const TopRatedMovieSlider = () => {
-  const { data, isLoading, isError, error } = useTopRatedMoviesQuery();
+  const { data, isLoading, isError, error } = useUpcomingMoviesQuery();
 
   if (isLoading) {
     return <h1>Loading...</h1>;
@@ -17,7 +17,7 @@ const TopRatedMovieSlider = () => {
   return (
     <div>
       <MovieSlider
-        title={"TopRated Movies"}
+        title={"개봉 예정 콘텐츠"}
         movies={data}
         responsive={responsive}
       />

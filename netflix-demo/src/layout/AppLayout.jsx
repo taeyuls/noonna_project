@@ -29,10 +29,10 @@ const AppLayout = () => {
               navbarScroll
             >
               <Nav.Link href="/" className="text-light">
-                Home
+                홈
               </Nav.Link>
               <Nav.Link href="/movies" className="text-light">
-                Movies
+                영화
               </Nav.Link>
             </Nav>
             <Form className="d-flex">
