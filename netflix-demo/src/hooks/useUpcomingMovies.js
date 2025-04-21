@@ -10,5 +10,6 @@ export const useUpcomingMoviesQuery = () => {
   return useQuery({
     queryKey: ["upcoming_movies"],
     queryFn: fetchUpcomingMovies,
+    staleTime: 1000 * 60 * 5,
   });
 };

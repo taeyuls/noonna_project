@@ -1,5 +1,5 @@
 .carousel-container {
-  overflow: hidden;
+  overflow: visible;
   height: 440px;
 }
 
