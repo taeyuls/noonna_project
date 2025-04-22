@@ -1,17 +1,34 @@
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import React from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const AppLayout = () => {
+  const [keyword, setKeyword] = useState("");
+  const navigate = useNavigate();
+
+  const searchByKeyword = (e) => {
+    e.preventDefault();
+
+    navigate(`/movies?q=${keyword}`);
+    setKeyword("");
+  };
+
   return (
-    <div style={{ backgroundColor: "#000", minHeight: "100vh", color: "#fff" }}>
-      <Navbar expand="lg" bg="black" variant="black">
+    <div
+      style={{
+        backgroundColor: "#000",
+        minHeight: "100vh",
+        color: "#fff",
+        fontFamily: "Noto Sans KR, sans-serif",
+      }}
+    >
+      <Navbar expand="lg" bg="black" variant="black fixed-top">
         <Container fluid>
           <Navbar.Brand href="/">
             <img
@@ -35,21 +52,24 @@ const AppLayout = () => {
                 영화
               </Nav.Link>
             </Nav>
-            <Form className="d-flex">
+            <Form className="d-flex" onSubmit={searchByKeyword}>
               <Form.Control
                 type="search"
                 placeholder="Search"
                 className="me-2"
                 aria-label="Search"
                 style={{
-                  width: "15vw",
+                  width: "20vw",
                   height: "40px",
                   backgroundColor: "#333",
                   color: "#fff",
                   border: "1px solid #555",
                 }}
+                value={keyword}
+                onChange={(e) => setKeyword(e.target.value)}
               />
               <Button
+                type="submit"
                 variant="outline-light"
                 style={{
                   width: "40px",
@@ -72,7 +92,7 @@ const AppLayout = () => {
         </Container>
       </Navbar>
 
-      <main className="px-4 py-4">
+      <main className="px-4 py-4" style={{ marginTop: "90px" }}>
         <Outlet />
       </main>
     </div>

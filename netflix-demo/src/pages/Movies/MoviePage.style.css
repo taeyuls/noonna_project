@@ -1,0 +1,116 @@
+.form-check {
+  min-width: 45%;
+}
+
+.filter-container {
+  position: sticky;
+  top: 90px;
+  background-color: #111;
+  padding: 1rem;
+  border-radius: 8px;
+  color: white;
+  z-index: 10;
+}
+
+@media (max-width: 768px) {
+  .filter-container {
+    position: static;
+    margin-bottom: 1rem;
+  }
+
+  .filter-container .form-check {
+    width: 100%;
+    margin-bottom: 0.3rem;
+  }
+}
+
+.custom-page {
+  font-size: 1rem;
+  color: #fff;
+  background-color: #111;
+  border: 1px solid #555;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.custom-page:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+.active-page .custom-page {
+  background-color: red;
+  border-color: red;
+  color: white;
+}
+
+.responsive-page {
+  font-size: 0.8rem;
+  padding: 0.3rem 0.6rem;
+}
+
+@media (max-width: 768px) {
+  .responsive-page {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .responsive-page {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.4rem;
+  }
+}
+
+.spinner-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+}
+
+.slider-container {
+  overflow: hidden;
+  width: 100%;
+  padding: 0 1rem;
+}
+
+.movie-slider-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.carousel-item-padding-40-px {
+  padding: 0 10px;
+}
+
+.react-multi-carousel-list {
+  overflow: visible !important;
+}
+
+.movie-card-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .react-multi-carousel-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .movie-card-wrapper {
+    width: 100%;
+  }
+
+  .movie-card {
+    width: 90% !important;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+}

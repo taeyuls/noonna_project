@@ -12,8 +12,10 @@ const MovieSlider = ({ title, movies, responsive }) => {
         infinite={true}
         centerMode={true}
         itemClass="movie-slider-p-1"
+        keyBoardControl={true}
         containerClass="carousel-container"
         responsive={responsive}
+        removeArrowOnDeviceType={["tablet", "mobile"]}
       >
         {Array.isArray(movies) &&
           movies.map((movie, index) => <MovieCard movie={movie} key={index} />)}

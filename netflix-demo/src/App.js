@@ -3,7 +3,7 @@ import "./App.css";
 import AppLayout from "./layout/AppLayout";
 import Homepage from "./pages/Homepage/Homepage";
 import MovieDetail from "./pages/MovieDetail/MovieDetail";
-import MoviePage from "./pages/Movies/Movies";
+import MoviePage from "./pages/Movies/MoviePage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 
 // 홈페이지 /
