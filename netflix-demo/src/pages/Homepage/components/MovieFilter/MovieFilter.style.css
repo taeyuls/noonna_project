@@ -1,0 +1,65 @@
+.neon-button {
+  background-color: transparent;
+  border: 1px solid #0ff;
+  color: #0ff;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 6px rgba(0, 255, 255, 0.5), 0 0 12px rgba(255, 0, 255, 0.3),
+    inset 0 0 4px rgba(0, 255, 255, 0.3);
+  animation: neonPulse 2s infinite alternate;
+}
+
+.neon-button:hover {
+  background-color: #0ff;
+  color: #111;
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.8), 0 0 20px rgba(255, 0, 255, 0.6),
+    inset 0 0 8px rgba(0, 0, 0, 0.3);
+}
+
+.neon-multiselect {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.neon-option {
+  background-color: #111;
+  padding: 6px 12px;
+  border: 1px solid #0ff;
+  color: #0ff;
+  border-radius: 6px;
+  box-shadow: 0 0 6px rgba(0, 255, 255, 0.4), 0 0 10px rgba(255, 0, 255, 0.3),
+    inset 0 0 6px rgba(0, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  animation: neonPulse 2s infinite alternate;
+}
+
+.neon-option input[type="checkbox"] {
+  accent-color: #0ff;
+}
+
+.neon-option:hover {
+  background-color: #0ff;
+  color: #000;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.8), 0 0 14px rgba(255, 0, 255, 0.6),
+    inset 0 0 8px rgba(0, 0, 0, 0.3);
+}
+
+/* 네온 깜빡임 효과 */
+@keyframes neonPulse {
+  from {
+    box-shadow: 0 0 6px rgba(0, 255, 255, 0.2), 0 0 10px rgba(255, 0, 255, 0.1),
+      inset 0 0 4px rgba(0, 255, 255, 0.1);
+  }
+  to {
+    box-shadow: 0 0 12px rgba(0, 255, 255, 0.6), 0 0 20px rgba(255, 0, 255, 0.4),
+      inset 0 0 8px rgba(0, 255, 255, 0.3);
+  }
+}

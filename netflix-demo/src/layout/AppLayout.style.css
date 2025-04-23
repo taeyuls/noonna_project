@@ -1,0 +1,96 @@
+.layout-root {
+  background-color: #000;
+  min-height: 100vh;
+  color: #d0f0ff;
+  font-family: "Orbitron", "Noto Sans KR", sans-serif;
+  overflow-x: hidden;
+}
+
+.navbar-custom {
+  height: 120px;
+  border-bottom: 4px solid #0ff;
+  box-shadow: 0 4px 20px rgba(0, 255, 255, 0.4);
+}
+
+.logo-img {
+  height: 150px;
+  object-fit: contain;
+}
+
+.nav-link-custom {
+  color: #d0f0ff;
+  font-size: 1.7rem;
+  font-family: "Orbitron", "Pretendard", sans-serif;
+  font-weight: 600;
+}
+
+.search-input {
+  width: 20vw;
+  height: 40px;
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+.search-button {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid #0ff;
+  background-color: transparent;
+  box-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .logo-img {
+    height: 100px;
+    margin-bottom: 0.5rem;
+  }
+
+  .nav-link-custom {
+    font-size: 1.3rem;
+    text-align: center;
+    width: 100%;
+  }
+
+  .search-input {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  .search-button {
+    width: 100%;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .logo-img {
+    height: 120px;
+  }
+
+  .nav-link-custom {
+    font-size: 1.5rem;
+  }
+
+  .search-input {
+    width: 60%;
+  }
+}
+
+.navbar-toggler {
+  border: 1px solid #0ff;
+  box-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
+  padding: 0.25rem 0.75rem;
+}
+
+@media (max-width: 768px) {
+  .navbar-collapse {
+    background-color: #111;
+    padding: 1rem;
+    border-top: 2px solid #0ff;
+    box-shadow: 0 4px 12px rgba(0, 255, 255, 0.2);
+  }
+}

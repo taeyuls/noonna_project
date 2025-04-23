@@ -23,12 +23,14 @@ const genreNames = {
   37: "서부",
 };
 
-const MovieCard = ({ movie }) => {
+const MovieCard = ({ movie, onClick }) => {
   return (
     <div
       className="movie-card"
+      onClick={onClick}
       style={{
         backgroundImage: `url(https://media.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path})`,
+        cursor: "pointer",
       }}
     >
       <div className="overlay">

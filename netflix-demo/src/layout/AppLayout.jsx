@@ -1,3 +1,4 @@
+import "@fontsource/orbitron/500.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState } from "react";
@@ -6,7 +7,8 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import "./AppLayout.style.css";
 
 const AppLayout = () => {
   const [keyword, setKeyword] = useState("");
@@ -20,35 +22,41 @@ const AppLayout = () => {
   };
 
   return (
-    <div
-      style={{
-        backgroundColor: "#000",
-        minHeight: "100vh",
-        color: "#fff",
-        fontFamily: "Noto Sans KR, sans-serif",
-      }}
-    >
-      <Navbar expand="lg" bg="black" variant="black fixed-top">
+    <div className="layout-root">
+      <Navbar
+        expand="lg"
+        bg="black"
+        variant="black fixed-top"
+        className="navbar-custom"
+      >
         <Container fluid>
-          <Navbar.Brand href="/">
+          <Link
+            to="/"
+            className="text-decoration-none d-flex align-items-center me-3"
+          ></Link>
+          <Navbar.Brand href="/" className="d-flex align-items-center">
             <img
-              src="/images/Netflix-Logo.png"
-              alt="Netflix"
-              height="70px"
-              style={{ marginRight: "10px" }}
+              src="/images/MM_Logo.png"
+              alt="Movie Monster"
+              className="logo-img"
             />
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls="navbarScroll" />
+          <Navbar.Toggle aria-controls="navbarScroll">
+            <i
+              className="bi bi-list"
+              style={{ fontSize: "1.8rem", color: "#0ff" }}
+            ></i>
+          </Navbar.Toggle>
           <Navbar.Collapse id="navbarScroll">
             <Nav
               className="me-auto my-2 my-lg-0 text-light"
               style={{ maxHeight: "100px" }}
               navbarScroll
             >
-              <Nav.Link href="/" className="text-light">
+              <Nav.Link href="/" className="nav-link-custom">
                 홈
               </Nav.Link>
-              <Nav.Link href="/movies" className="text-light">
+              <Nav.Link href="/movies" className="nav-link-custom">
                 영화
               </Nav.Link>
             </Nav>
@@ -56,35 +64,19 @@ const AppLayout = () => {
               <Form.Control
                 type="search"
                 placeholder="Search"
-                className="me-2"
+                className="me-2 search-input"
                 aria-label="Search"
-                style={{
-                  width: "20vw",
-                  height: "40px",
-                  backgroundColor: "#333",
-                  color: "#fff",
-                  border: "1px solid #555",
-                }}
                 value={keyword}
                 onChange={(e) => setKeyword(e.target.value)}
               />
               <Button
                 type="submit"
                 variant="outline-light"
-                style={{
-                  width: "40px",
-                  height: "40px",
-                  padding: "0",
-                  border: "1px solid red",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  backgroundColor: "transparent",
-                }}
+                className="search-button"
               >
                 <i
                   className="bi bi-search"
-                  style={{ fontSize: "1rem", color: "red" }}
+                  style={{ fontSize: "1rem", color: "#0ff" }}
                 ></i>
               </Button>
             </Form>
@@ -92,7 +84,7 @@ const AppLayout = () => {
         </Container>
       </Navbar>
 
-      <main className="px-4 py-4" style={{ marginTop: "90px" }}>
+      <main className="px-5 py-5" style={{ marginTop: "90px" }}>
         <Outlet />
       </main>
     </div>
