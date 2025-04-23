@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { Spinner } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import { useParams } from "react-router-dom";
+import "./MovieDetail.style.css";
 
 const useIsMobile = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -23,22 +25,50 @@ const MovieDetail = ({ id: propId, show, onHide }) => {
   useEffect(() => {
     if (id) {
       const fetchMovie = async () => {
-        const response = await fetch(
-          `https://api.themoviedb.org/3/movie/${id}?api_key=API_KEY&language=ko-KR`
-        );
-        const data = await response.json();
-        setMovie(data);
+        try {
+          const response = await fetch(
+            `https://api.themoviedb.org/3/movie/${id}?language=ko-KR`,
+            {
+              headers: {
+                Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
+                Accept: "application/json",
+              },
+            }
+          );
+          const data = await response.json();
+          console.log("데이터", data);
+
+          setMovie(data);
+        } catch (err) {
+          console.error("영화 정보를 불러오는 데 실패했습니다.", err);
+        }
       };
       fetchMovie();
     }
   }, [id]);
 
-  if (!movie) return <div className="text-white p-4">로딩 중...</div>;
+  if (!movie)
+    return (
+      <div className="text-white p-4">
+        {" "}
+        <div className="spinner-area">
+          <Spinner
+            animation="border"
+            variant="danger"
+            style={{ width: "5rem", height: "5rem" }}
+          />
+        </div>
+      </div>
+    );
 
   const DetailContent = () => (
     <>
       <img
-        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+        src={
+          movie.poster_path
+            ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+            : "/no-image.png"
+        }
         alt={movie.title}
         className="img-fluid mb-3"
       />
@@ -52,22 +82,40 @@ const MovieDetail = ({ id: propId, show, onHide }) => {
     </>
   );
 
-  if (show && !isMobile) {
+  if (!isMobile && show) {
     return (
       <Modal show={show} onHide={onHide} size="lg" centered>
-        <Modal.Header closeButton>
-          <Modal.Title>{movie.title}</Modal.Title>
+        <Modal.Header closeButton className="bg-dark border-bottom-0">
+          <Modal.Title>
+            <span className="text-neon neon-title-bg">{movie.title}</span>
+          </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <DetailContent />
+        <Modal.Body className="neon-modal-body text-center">
+          <img
+            src={
+              movie.poster_path
+                ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                : "/no-image.png"
+            }
+            alt={movie.title}
+            className="img-fluid mb-4 neon-image"
+            style={{ maxHeight: "400px", margin: "0 auto", display: "block" }}
+          />
+          <p className="movie-description">{movie.overview}</p>
+          <p>
+            <strong>개봉일:</strong> {movie.release_date}
+          </p>
+          <p>
+            <strong>평점:</strong> {movie.vote_average}
+          </p>
         </Modal.Body>
       </Modal>
     );
   }
 
   return (
-    <div className="container text-white py-5">
-      <h1>{movie.title}</h1>
+    <div className="container text-white py-5 neon-modal-body">
+      <h1 className="text-neon">{movie.title}</h1>
       <DetailContent />
     </div>
   );

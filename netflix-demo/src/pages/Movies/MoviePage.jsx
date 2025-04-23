@@ -8,6 +8,8 @@ import {
   useParams,
   useSearchParams,
 } from "react-router-dom";
+import useIsMobile from "../../hooks/useIsMobile";
+import { useMovieModal } from "../../hooks/useMovieModal";
 import { useSearchMovieQuery } from "../../hooks/useSearchMovieQuery";
 import MovieFilter from "../Homepage/components/MovieFilter/MovieFilter";
 import MovieList from "../Homepage/components/MovieList/MovieList";
@@ -15,13 +17,12 @@ import MovieDetail from "../MovieDetail/MovieDetail";
 import "./MoviePage.style.css";
 
 const MoviePage = () => {
+  const isMobile = useIsMobile();
   const [query, setQuery] = useSearchParams();
   const [page, setPage] = useState(Number(query.get("page")) || 1);
   const keyword = query.get("q");
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [selectedAdult, setSelectedAdult] = useState("");
-  const [showModal, setShowModal] = useState(false);
-  const [selectedMovie, setSelectedMovie] = useState(null);
   const handleReset = () => {
     setSelectedGenres([]);
     setSelectedAdult("");
@@ -31,32 +32,15 @@ const MoviePage = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  useEffect(() => {
-    const isMobile = window.innerWidth < 768;
-    if (routeId && !isMobile) {
-      setSelectedMovie({ id: routeId });
-      setShowModal(true);
-    }
-  }, [routeId]);
+  const { data, isLoading, isError, error } = useSearchMovieQuery({
+    keyword,
+    page,
+    genres: selectedGenres.join(","),
+    adult: selectedAdult,
+  });
 
-  const handleCardClick = (movie) => {
-    const isMobile = window.innerWidth < 768;
-    if (isMobile) {
-      navigate(`/movies/${movie.id}`);
-    } else {
-      setSelectedMovie(movie);
-      setShowModal(true);
-      navigate(`/movies/${movie.id}`, {
-        replace: false,
-        state: { backgroundLocation: location },
-      });
-    }
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-    navigate("/movies");
-  };
+  const { selectedMovie, showModal, handleCardClick, handleCloseModal } =
+    useMovieModal(data, location);
 
   const handleGenreChange = (e) => {
     const { value, checked } = e.target;
@@ -69,19 +53,12 @@ const MoviePage = () => {
     setSelectedAdult(e.target.value);
   };
 
-  const { data, isLoading, isError, error } = useSearchMovieQuery({
-    keyword,
-    page,
-    genres: selectedGenres.join(","),
-    adult: selectedAdult,
-  });
-
   const handlePageClick = ({ selected }) => {
     setPage(selected + 1);
   };
 
   useEffect(() => {
-    setPage(1); // Reset page
+    setPage(1);
   }, [keyword]);
 
   useEffect(() => {
@@ -108,6 +85,9 @@ const MoviePage = () => {
   if (isError) {
     return <Alert variant="danger">{error.message}</Alert>;
   }
+
+  console.log("routeId:", routeId);
+  console.log("showModal:", showModal);
 
   return (
     <Container>
@@ -149,12 +129,8 @@ const MoviePage = () => {
         </Col>
       </Row>
 
-      {selectedMovie && window.innerWidth >= 768 && (
-        <MovieDetail
-          id={selectedMovie.id}
-          show={showModal}
-          onHide={handleCloseModal}
-        />
+      {routeId && (
+        <MovieDetail id={routeId} show={true} onHide={handleCloseModal} />
       )}
     </Container>
   );
