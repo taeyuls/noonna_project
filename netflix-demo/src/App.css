@@ -4,6 +4,10 @@ body {
   background-color: #000 !important;
 }
 
+body.modal-open {
+  overflow: hidden;
+}
+
 .form-control::placeholder {
   color: "#d0f0ff" !important;
   opacity: 0.7;

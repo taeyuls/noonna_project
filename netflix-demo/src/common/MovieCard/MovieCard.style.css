@@ -41,8 +41,12 @@
 }
 
 .movie-title {
-  font-size: 1.4rem;
-  font-weight: 700;
+  margin-top: 2rem;
+  display: -webkit-box;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1.7rem !important;
 }
 
 .movie-footer {

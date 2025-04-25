@@ -1,4 +1,3 @@
-// src/pages/Movies/MoviePage.jsx
 import React, { useEffect, useState } from "react";
 import { Alert, Col, Container, Row, Spinner } from "react-bootstrap";
 import ReactPaginate from "react-paginate";
@@ -23,9 +22,10 @@ const MoviePage = () => {
   const keyword = query.get("q");
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [selectedAdult, setSelectedAdult] = useState("");
-  const handleReset = () => {
-    setSelectedGenres([]);
-    setSelectedAdult("");
+  const [selectedSort, setSelectedSort] = useState("");
+
+  const handleSortChange = (e) => {
+    setSelectedSort(e.target.value);
   };
 
   const { id: routeId } = useParams();
@@ -37,6 +37,7 @@ const MoviePage = () => {
     page,
     genres: selectedGenres.join(","),
     adult: selectedAdult,
+    sort: selectedSort,
   });
 
   const { selectedMovie, showModal, handleCardClick, handleCloseModal } =
@@ -67,8 +68,9 @@ const MoviePage = () => {
       page,
       genres: selectedGenres.join(","),
       adult: selectedAdult,
+      sort: selectedSort,
     });
-  }, [selectedGenres, selectedAdult, keyword, page]);
+  }, [selectedGenres, selectedAdult, selectedSort, keyword, page]);
 
   if (isLoading) {
     return (
@@ -86,25 +88,27 @@ const MoviePage = () => {
     return <Alert variant="danger">{error.message}</Alert>;
   }
 
-  console.log("routeId:", routeId);
-  console.log("showModal:", showModal);
-
   return (
     <Container>
       <Row>
         <Col lg={2} xs={12}>
           <MovieFilter
-            onReset={handleReset}
+            onReset={() => {
+              setSelectedGenres([]);
+              setSelectedAdult("");
+              setSelectedSort("");
+            }}
             selectedGenres={selectedGenres}
             selectedAdult={selectedAdult}
+            selectedSort={selectedSort}
             handleGenreChange={handleGenreChange}
             handleAdultChange={handleAdultChange}
+            handleSortChange={handleSortChange}
           />
         </Col>
 
         <Col lg={8} xs={12}>
           <MovieList data={data} handleCardClick={handleCardClick} />
-
           <ReactPaginate
             pageCount={Math.min(data?.total_pages ?? 0, 500)}
             nextLabel=">"
@@ -129,8 +133,12 @@ const MoviePage = () => {
         </Col>
       </Row>
 
-      {routeId && (
-        <MovieDetail id={routeId} show={true} onHide={handleCloseModal} />
+      {showModal && !isMobile && (
+        <MovieDetail
+          id={selectedMovie?.id}
+          show={showModal}
+          onHide={handleCloseModal}
+        />
       )}
     </Container>
   );

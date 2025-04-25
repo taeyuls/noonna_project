@@ -15,16 +15,38 @@ const genres = [
   { label: "로맨스", value: "10749" },
 ];
 
+const sortOptions = [
+  { label: "인기 높은순", value: "popularity.desc" },
+  { label: "인기 낮은순", value: "popularity.asc" },
+];
+
 const MovieFilter = ({
   selectedGenres,
   selectedAdult,
+  selectedSort,
   handleGenreChange,
   handleAdultChange,
+  handleSortChange,
   onReset,
 }) => {
   return (
     <div className="p-3 bg-dark text-white rounded mb-3">
       <div className="filter-container">
+        <div className="mb-4">
+          <strong className="d-block mb-2 text-neon">인기순 정렬</strong>
+          <Form.Select
+            value={selectedSort}
+            onChange={handleSortChange}
+            className="neon-select"
+          >
+            <option value="">기본</option>
+            {sortOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </Form.Select>
+        </div>
         <div className="mb-4">
           <strong className="d-block mb-2 text-neon">장르 선택</strong>
           <div className="neon-multiselect">
@@ -42,7 +64,7 @@ const MovieFilter = ({
           </div>
         </div>
 
-        <div className="mb-2">
+        <div className="mb-4">
           <strong className="d-block mb-2 text-neon">연령 구분</strong>
           <div className="d-flex flex-column gap-1">
             <Form.Check
@@ -65,6 +87,7 @@ const MovieFilter = ({
             />
           </div>
         </div>
+
         <button className="neon-button" onClick={onReset}>
           필터 초기화
         </button>

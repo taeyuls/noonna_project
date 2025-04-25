@@ -3,6 +3,10 @@ body {
   background-color: #000;
   color: "#d0f0ff" !important;
 }
+
+body.modal-open {
+  overflow: hidden;
+}
 /* 
 .neon-text {
   color: #00ffff;

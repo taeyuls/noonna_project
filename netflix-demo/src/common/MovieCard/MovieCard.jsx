@@ -22,29 +22,36 @@ const genreNames = {
   9648: "미스터리",
   37: "서부",
 };
-
 const MovieCard = ({ movie, onClick }) => {
+  if (!movie || !movie.poster_path) return null;
+
+  const backgroundImageUrl = movie.poster_path
+    ? `url(https://media.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path})`
+    : "none";
+
   return (
     <div
       className="movie-card"
       onClick={onClick}
       style={{
-        backgroundImage: `url(https://media.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path})`,
+        backgroundImage: backgroundImageUrl,
         cursor: "pointer",
       }}
     >
       <div className="overlay">
-        <h1 className="movie-title">{movie.title}</h1>
+        <h1 className="movie-title">{movie.title || "제목 없음"}</h1>
 
         <div className="movie-footer">
           <div className="movie-genres">
-            {movie.genre_ids.map((id) => (
+            {movie.genre_ids?.map((id) => (
               <Badge bg="danger" key={id}>
-                {genreNames[id] || "Genre"}
+                {genreNames[id] || "장르"}
               </Badge>
             ))}
           </div>
-          <p className="movie-rating">⭐ {movie.vote_average.toFixed(1)}</p>
+          <p className="movie-rating">
+            ⭐ {movie.vote_average ? movie.vote_average.toFixed(1) : "?"}
+          </p>
 
           <div className="movie-age-badge">
             <img
@@ -62,5 +69,4 @@ const MovieCard = ({ movie, onClick }) => {
     </div>
   );
 };
-
 export default MovieCard;
