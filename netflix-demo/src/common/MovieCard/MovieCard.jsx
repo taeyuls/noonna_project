@@ -32,7 +32,7 @@ const MovieCard = ({ movie, onClick }) => {
   return (
     <div
       className="movie-card"
-      onClick={onClick}
+      onClick={() => onClick(movie)}
       style={{
         backgroundImage: backgroundImageUrl,
         cursor: "pointer",

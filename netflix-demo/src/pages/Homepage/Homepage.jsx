@@ -1,21 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import MovieDetail from "../MovieDetail/MovieDetail";
 import Banner from "./components/Banner/Banner";
 import PopularMovieSlider from "./components/PopularMovieSlider/PopularMovieSlider";
 import TopRatedMovieSlider from "./components/TopRatedMovieSlider/TopRatedMovieSlider";
 import UpcomingMovieSlider from "./components/UpcomingMovieSlider/UpcomingMovieSlider";
 
-// 1. 배너 => popoular 영화를 들고와서 첫번째 아이템을 보여주자
-// 2. popular movie
-// 3. top rated movie
-// 4. upcoming movie
-
 const Homepage = () => {
+  const navigate = useNavigate();
+  const [selectedMovie, setSelectedMovie] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
+  const handleMovieClick = (movie) => {
+    setSelectedMovie(movie);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedMovie(null);
+    setShowModal(false);
+  };
+
   return (
     <div>
       <Banner />
-      <PopularMovieSlider />
-      <TopRatedMovieSlider />
-      <UpcomingMovieSlider />
+      <PopularMovieSlider onClick={handleMovieClick} />
+      <TopRatedMovieSlider onClick={handleMovieClick} />
+      <UpcomingMovieSlider onClick={handleMovieClick} />
+
+      {selectedMovie && (
+        <MovieDetail
+          id={selectedMovie.id}
+          show={showModal}
+          onHide={handleCloseModal}
+        />
+      )}
     </div>
   );
 };

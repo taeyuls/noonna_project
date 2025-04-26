@@ -5,7 +5,7 @@ import MovieSlider from "../../../../common/MovieSlider/MovieSlider";
 import { responsive } from "../../../../constants/responsive";
 import { usePopularMoviesQuery } from "../../../../hooks/usePopularMovies";
 
-const PopularMovieSlider = () => {
+const PopularMovieSlider = ({ onClick }) => {
   const { data, isLoading, isError, error } = usePopularMoviesQuery();
   console.log("data", data);
 
@@ -18,7 +18,12 @@ const PopularMovieSlider = () => {
 
   return (
     <div>
-      <MovieSlider title={"인기 영화 "} movies={data} responsive={responsive} />
+      <MovieSlider
+        title={"인기 영화 "}
+        movies={data}
+        responsive={responsive}
+        onClick={onClick}
+      />
     </div>
   );
 };

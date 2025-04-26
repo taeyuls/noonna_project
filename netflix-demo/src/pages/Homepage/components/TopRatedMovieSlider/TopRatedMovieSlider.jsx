@@ -5,7 +5,7 @@ import MovieSlider from "../../../../common/MovieSlider/MovieSlider";
 import { responsive } from "../../../../constants/responsive";
 import { useTopRatedMoviesQuery } from "../../../../hooks/useTopRatedMovies";
 
-const TopRatedMovieSlider = () => {
+const TopRatedMovieSlider = ({ onClick }) => {
   const { data, isLoading, isError, error } = useTopRatedMoviesQuery();
 
   if (isLoading) {
@@ -21,6 +21,7 @@ const TopRatedMovieSlider = () => {
         title={"지금 뜨는 콘텐츠 "}
         movies={data}
         responsive={responsive}
+        onClick={onClick}
       />
     </div>
   );
