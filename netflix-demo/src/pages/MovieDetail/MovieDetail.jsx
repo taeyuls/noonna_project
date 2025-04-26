@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import useIsMobile from "../../hooks/useIsMobile";
 import "./MovieDetail.style.css";
 
 const MovieDetail = ({ id: propId, show, onHide }) => {
+  const location = useLocation();
   const params = useParams();
   const navigate = useNavigate();
   const id = propId || params.id;
@@ -85,6 +86,18 @@ const MovieDetail = ({ id: propId, show, onHide }) => {
     };
     fetchRecommendations();
   }, [id]);
+
+  const handleClose = () => {
+    if (onHide) {
+      onHide(); // 모달 닫기
+    } else {
+      if (location.pathname.startsWith("/movies/")) {
+        navigate("/movies"); // 영화 페이지로 이동
+      } else {
+        navigate("/"); // 홈으로 이동
+      }
+    }
+  };
 
   //  예고 불러오기
   useEffect(() => {
@@ -239,15 +252,20 @@ const MovieDetail = ({ id: propId, show, onHide }) => {
   );
 
   const handleGoBack = () => {
+    const from = location.state?.from || "/movies";
+    navigate(from);
     if (onHide) onHide();
-    navigate("/movies");
   };
+
+  if (!movie) {
+    return <Spinner animation="border" />;
+  }
 
   if (!isMobile && show) {
     return (
       <Modal
         show={show}
-        onHide={onHide}
+        onHide={handleClose}
         centered
         size="lg"
         dialogClassName="custom-neon-modal"
@@ -269,7 +287,7 @@ const MovieDetail = ({ id: propId, show, onHide }) => {
       <div className="container neon-modal-body py-5">
         <h1 className="text-neon text-center mb-4">{movie.title}</h1>
         <DetailContent />
-        <button onClick={handleGoBack} className="btn btn-outline-info mt-4">
+        <button onClick={handleClose} className="btn btn-outline-info mt-4">
           돌아가기
         </button>
       </div>
